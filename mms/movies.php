@@ -18,7 +18,7 @@
  <!DOCTYPE html>
  <html>
  <head>
- 	<title>Dashboard</title>
+ 	<title>Movies</title>
  	<link href="
 https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css
 " rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -38,7 +38,7 @@ https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css
  
  
  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><?php echo "Welcome to dashboard ".$_SESSION['username']; ?></a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><?php echo "Welcome to Movies ".$_SESSION['username']; ?></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -104,7 +104,7 @@ https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">Movies</h1>
         
       </div>
 
@@ -129,14 +129,15 @@ https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css
 
                <tr>
                 <td><?php echo $user_data['id']; ?></td>
-                <td><?php echo $user_data['name']; ?></td>
-                <td><?php echo $user_data['surname']; ?></td>
-                <td><?php echo $user_data['username']; ?></td>
-                <td><?php echo $user_data['email']; ?></td>
+                <td><?php echo $user_data['user_id']; ?></td>
+                <td><?php echo $user_data['movie_id']; ?></td>
+                <td><?php echo $user_data['nr_tickets']; ?></td>
+                <td><?php echo $user_data['date']; ?></td>
+                <td><?php echo $user_data['time']; ?></td>
         
-                <td><a href="updateUsers.php?id=<?= $user_data['id'];?>">Update</a></td>
+                <td><a href="updatemovies.php?id=<?= $user_data['id'];?>">Update</a></td>
            
-                <td><a href="deleteUsers.php?id=<?= $user_data['id'];?>">Delete</a></td>
+                <td><a href="deletemovies.php?id=<?= $user_data['id'];?>">Delete</a></td>
               </tr>
               
            <?php  } ?>

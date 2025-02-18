@@ -73,7 +73,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label class="form-label">Guests</label>
             <input type="number" class="form-control" name="guests" required>
         </div>
-        
+        <div class="mb-3">
+            <label class="form-label">Table ID</label>
+            <input type="number" class="form-control" name="table_id" required>
+        </div>
         <button type="submit" class="btn btn-primary">Reserve</button>
     </form>
 </div>

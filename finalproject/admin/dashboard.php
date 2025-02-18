@@ -2,13 +2,13 @@
 require_once '../includes/session.php';
 require_once '../includes/config.php';
 
-// Ensure only admin can access
+
 if ($_SESSION['role'] !== 'admin') {
     header("Location: ../dashboard.php");
     exit();
 }
 
-// Fetch counts for dashboard overview
+
 $totalUsers = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
 $totalReservations = $pdo->query("SELECT COUNT(*) FROM reservations")->fetchColumn();
 $totalReviews = $pdo->query("SELECT COUNT(*) FROM reviews")->fetchColumn();

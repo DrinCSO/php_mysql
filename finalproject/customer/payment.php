@@ -3,40 +3,21 @@ session_start();
 require_once '../includes/config.php';
 require_once '../includes/session.php';
 
-// Redirect if not logged in or not a customer
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
     header("Location: ../auth/login.php");
     exit();
 }
 
-if (!isset($_GET['reservation_id'])) {
-    header("Location: dashboard.php");
-    exit();
-}
-
-$reservation_id = $_GET['reservation_id'];
-$user_id = $_SESSION['user_id'];
-
-// Fetch reservation details
-$stmt = $pdo->prepare("SELECT * FROM reservations WHERE id = ? AND user_id = ?");
-$stmt->execute([$reservation_id, $user_id]);
-$reservation = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$reservation) {
-    header("Location: dashboard.php");
-    exit();
-}
-
-// Handle payment submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $payment_method = $_POST['payment_method'];
-    $amount = 50.00; // Set your fixed price or dynamic price logic
-
-    $stmt = $pdo->prepare("INSERT INTO payments (user_id, reservation_id, amount, payment_method, payment_status) VALUES (?, ?, ?, ?, 'completed')");
-    if ($stmt->execute([$user_id, $reservation_id, $amount, $payment_method])) {
-        $message = "Payment successful!";
+if (isset($_POST['pay'])) {
+    $reservation_id = $_POST['reservation_id'];
+    $amount = $_POST['amount'];
+    
+    // Insert into payments table
+    $stmt = $pdo->prepare("INSERT INTO payments (reservation_id, amount) VALUES (?, ?)");
+    if ($stmt->execute([$reservation_id, $amount])) {
+        echo "Payment successful!";
     } else {
-        $message = "Payment failed. Try again.";
+        echo "Payment failed.";
     }
 }
 ?>
@@ -50,21 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Payment for Reservation #<?= htmlspecialchars($reservation_id) ?></h2>
-        <?php if (isset($message)): ?>
-            <div class="alert alert-info"><?= htmlspecialchars($message) ?></div>
-        <?php endif; ?>
-        <form method="POST">
+        <h2>Make a Payment</h2>
+        <form action="payment.php" method="POST">
+            <input type="hidden" name="reservation_id" value="<?= $_GET['reservation_id'] ?>">
             <div class="mb-3">
-                <label class="form-label">Select Payment Method</label>
-                <select name="payment_method" class="form-control" required>
-                    <option value="cash">Cash</option>
-                    <option value="credit_card">Credit Card</option>
-                    <option value="paypal">PayPal</option>
-                </select>
+                <label>Amount</label>
+                <input type="number" name="amount" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Make Payment</button>
-            <a href="dashboard.php" class="btn btn-secondary">Back</a>
+            <button type="submit" name="pay" class="btn btn-primary">Pay Now</button>
         </form>
     </div>
 </body>

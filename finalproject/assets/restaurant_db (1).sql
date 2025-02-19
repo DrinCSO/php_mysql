@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2025 at 06:36 PM
+-- Generation Time: Feb 19, 2025 at 09:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,8 +49,16 @@ CREATE TABLE `reservations` (
   `table_id` int(11) NOT NULL,
   `reservation_date` date NOT NULL,
   `reservation_time` time NOT NULL,
-  `status` enum('pending','approved','cancelled') DEFAULT 'pending'
+  `status` enum('pending','approved','cancelled') DEFAULT 'pending',
+  `guests` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reservations`
+--
+
+INSERT INTO `reservations` (`id`, `user_id`, `table_id`, `reservation_date`, `reservation_time`, `status`, `guests`) VALUES
+(20, 5, 5, '2222-02-22', '14:22:00', 'pending', 4);
 
 -- --------------------------------------------------------
 
@@ -80,6 +88,14 @@ CREATE TABLE `tables` (
   `status` enum('available','reserved') DEFAULT 'available'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tables`
+--
+
+INSERT INTO `tables` (`id`, `table_number`, `capacity`, `status`) VALUES
+(4, 1, 3, 'available'),
+(5, 3, 4, 'available');
+
 -- --------------------------------------------------------
 
 --
@@ -93,6 +109,15 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` enum('admin','customer') DEFAULT 'customer'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
+(5, 'joe', 'joe@gmail.com', '$2y$10$tj.yy.nUnXv3kudN0flME..hQaaVqFigWqQsnv9JIoVrVcIql/NNe', 'customer'),
+(6, 'drin', 'd@gmail.com', '$2y$10$Q1qdNmz0xtn.IMV6NZ5rT.Fs26iXEsbKoabW3pFd3Bo3oeuVFT1cW', 'admin'),
+(7, 'drim', 'k@gmail.com', '$2y$10$1Ok2.dfxf3EIiWs7HH4TYeq3rY6/62Ws.dS5XWoq9PtRdnOAQ7ee.', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -144,13 +169,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -162,13 +187,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

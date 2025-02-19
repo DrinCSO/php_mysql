@@ -23,10 +23,10 @@ $totalPayments = $pdo->query("SELECT COUNT(*) FROM payments")->fetchColumn();
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <h2 class="text-center">Admin Dashboard</h2>
-        <div class="row">
+<body class="bg-light d-flex align-items-center justify-content-center vh-100"> 
+    <div class="container text-center">
+        <h2 class="mb-4">Admin Dashboard</h2>
+        <div class="row justify-content-center"> 
             <div class="col-md-3">
                 <div class="card text-center p-3 shadow">
                     <h5>Total Users</h5>
@@ -45,14 +45,8 @@ $totalPayments = $pdo->query("SELECT COUNT(*) FROM payments")->fetchColumn();
                     <p><?= $totalReviews; ?></p>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center p-3 shadow">
-                    <h5>Total Payments</h5>
-                    <p>$<?= number_format($totalPayments, 2); ?></p>
-                </div>
-            </div>
         </div>
-        <div class="mt-4 text-center">
+        <div class="mt-4">
             <a href="manage.php" class="btn btn-primary">Manage Everything</a>
             <a href="../auth/logout.php" class="btn btn-danger">Logout</a>
         </div>

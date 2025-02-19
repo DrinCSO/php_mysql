@@ -5,21 +5,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = $_POST['role']; // Get the selected role
+    $role = $_POST['role']; 
 
     if (empty($name) || empty($email) || empty($password) || empty($role)) {
         echo "All fields are required!";
         exit;
     }
 
-    // Hash the password
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    // Prepare the SQL statement
+   
     $sql = "INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)";
     $stmt = $pdo->prepare($sql);
 
-    // Bind parameters
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->bindParam(':password', $hashed_password, PDO::PARAM_STR);

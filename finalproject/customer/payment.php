@@ -12,7 +12,7 @@ if (isset($_POST['pay'])) {
     $reservation_id = $_POST['reservation_id'];
     $amount = $_POST['amount'];
     
-    // Insert into payments table
+    
     $stmt = $pdo->prepare("INSERT INTO payments (reservation_id, amount) VALUES (?, ?)");
     if ($stmt->execute([$reservation_id, $amount])) {
         echo "Payment successful!";

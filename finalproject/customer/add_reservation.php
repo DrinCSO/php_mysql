@@ -3,7 +3,6 @@ session_start();
 require_once '../includes/config.php';
 require_once '../includes/session.php';
 
-// Redirect if not logged in or not a customer
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
     header("Location: ../auth/login.php");
     exit();
@@ -12,19 +11,23 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
 $user_id = $_SESSION['user_id'];
 $message = "";
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $reservation_date = $_POST['reservation_date'];
     $reservation_time = $_POST['reservation_time'];
     $guests = $_POST['guests'];
     $table_id = $_POST['table_id'];
 
-    // Insert reservation
-    $stmt = $pdo->prepare("INSERT INTO reservations (user_id, table_id, reservation_date, reservation_time, status) VALUES (?, ?, ?, ?, 'pending')");
-    if ($stmt->execute([$user_id, $table_id, $reservation_date, $reservation_time])) {
-        $message = "<div class='alert alert-success'>Reservation request submitted successfully!</div>";
+   
+    if (!empty($reservation_date) && !empty($reservation_time) && !empty($guests) && !empty($table_id)) {
+        $stmt = $pdo->prepare("INSERT INTO reservations (user_id, table_id, reservation_date, reservation_time, guests, status) VALUES (?, ?, ?, ?, ?, 'pending')");
+        if ($stmt->execute([$user_id, $table_id, $reservation_date, $reservation_time, $guests])) {
+            header("Location: dashboard.php"); 
+            exit();
+        } else {
+            $message = "<div class='alert alert-danger'>Error making reservation.</div>";
+        }
     } else {
-        $message = "<div class='alert alert-danger'>Error making reservation.</div>";
+        $message = "<div class='alert alert-danger'>All fields are required.</div>";
     }
 }
 ?>
@@ -38,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">Restaurant</a>
@@ -76,7 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="mb-3">
             <label class="form-label">Table ID</label>
             <input type="number" class="form-control" name="table_id" required>
+
         </div>
+        
+
+        
         <button type="submit" class="btn btn-primary">Reserve</button>
     </form>
 </div>

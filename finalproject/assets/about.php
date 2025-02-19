@@ -16,8 +16,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="add_reservation.php">Make a Reservation</a></li>
-                    <li class="nav-item"><a class="nav-link" href="dashboard.php">My Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="../customer/add_reservation.php">Make a Reservation</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../customer/dashboard.php">My Reservations</a></li>
                     <li class="nav-item"><a class="nav-link" href="../assets/about.php">About Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="../assets/contact.php">Contact Us</a></li>
                     <li class="nav-item"><a class="nav-link btn btn-danger text-white ms-2" href="../auth/logout.php">Logout</a></li>

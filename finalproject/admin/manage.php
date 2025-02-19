@@ -7,7 +7,6 @@ if ($_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Fetch data for tables
 $users = $pdo->query("SELECT id, name, email, role FROM users")->fetchAll(PDO::FETCH_ASSOC);
 $reservations = $pdo->query("SELECT * FROM reservations")->fetchAll(PDO::FETCH_ASSOC);
 $reviews = $pdo->query("SELECT * FROM reviews")->fetchAll(PDO::FETCH_ASSOC);
